@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Repair Report</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Левая колонка: Ввод и Настройки -->
+    <div class="card input-section">
+        <h1>🛠️ Генератор отчетов</h1>
+        
+        <label for="rawInput">Введите список работ / замен:</label>
+        <textarea id="rawInput" placeholder="Пример: замена Модуль SIM7600E-H imei:868140072235570, Микроконтроллер STM32L151, обновлена прошивка..."></textarea>
+        
+        <div class="controls">
+            <button id="btnGenerate" class="btn-primary">Сформировать отчет</button>
+            <button id="btnClear" class="btn-secondary">Очистить</button>
+        </div>
+
+        <!-- Блок управления базой знаний -->
+        <div class="admin-panel">
+            <details>
+                <summary>⚙️ Управление базой знаний</summary>
+                
+                <!-- Часть 1: Быстрое добавление -->
+                <div class="admin-form">
+                    <h3>Добавить новый компонент</h3>
+                    <input type="text" id="newPartNumber" placeholder="Part Number (напр. XYZ123)">
+                    <select id="newCategory">
+                        <option value="MCU">Микроконтроллер</option>
+                        <option value="MODEM">Модем</option>
+                        <option value="POWER_IC">Питание (микросхема)</option>
+                        <option value="GPIO">Транзистор/Логика</option>
+                        <option value="INTERFACE">Интерфейс</option>
+                        <option value="CONNECTOR">Разъем</option>
+                        <option value="BATTERY">Батарея</option>
+                        <option value="PROTECTION">Защита/Доработка</option>
+                    </select>
+                    <input type="text" id="newPhraseDone" placeholder="Фраза 'Выполнено' (напр. Замена микросхемы)">
+                    <input type="text" id="newPhraseTodo" placeholder="Фраза 'Требуется' (напр. микросхемы)">
+                    <button id="btnAddComponent" class="btn-small">➕ Добавить в базу</button>
+                </div>
+
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
+
+                <!-- Часть 2: Редактирование существующей базы -->
+                <div class="db-editor">
+                    <h3>Редактор текущих фраз</h3>
+                    <p style="font-size: 0.8rem; color: #666;">
+                        Измените текст прямо в таблице. Например, поменяйте "доработка..." на "ремонт..." для варисторов.
+                    </p>
+                    <div id="dbContainer" style="max-height: 300px; overflow-y: auto;">
+                        <!-- Таблица генерируется JS -->
+                    </div>
+                    <div class="db-controls">
+                        <button id="btnSaveDb" class="btn-primary">💾 Сохранить изменения</button>
+                        <button id="btnResetDb" class="btn-secondary">🔄 Сброс к заводским</button>
+                    </div>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- Правая колонка: Результат -->
+    <div class="card output-section">
+        <h2>Результат</h2>
+        
+        <label>Отчет о выполненной работе:</label>
+        <div class="output-box" id="resultDone">Здесь появится текст отчета...</div>
+        <button class="btn-copy" onclick="copyToClipboard('resultDone')">Копировать</button>
+
+        <label style="margin-top: 20px;">Требуется замена (Дефектовка):</label>
+        <div class="output-box" id="resultTodo">Здесь появится список...</div>
+        <button class="btn-copy" onclick="copyToClipboard('resultTodo')">Копировать</button>
+    </div>
+</div>
+
+<!-- Подключение модулей -->
+<script src="data.js"></script>
+<script src="parser.js"></script>
+<script src="generator.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
