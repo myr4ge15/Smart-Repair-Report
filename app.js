@@ -24,8 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     btnClear.addEventListener('click', () => {
         rawInput.value = '';
-        resultDone.textContent = '...';
-        resultTodo.textContent = '...';
+        // Возвращаем исходные тексты-подсказки вместо "..."
+        resultDone.textContent = 'Здесь появится текст отчета...';
+        resultTodo.textContent = 'Здесь появится список...';
     });
 
     btnSaveDb.addEventListener('click', () => {
