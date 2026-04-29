@@ -1,78 +1,230 @@
 :root {
-    --primary: #2563eb;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text: #1e293b;
-    --border: #e2e8f0;
+    --teleofis-red: #981e1e; /* Фирменный красный */
+    --teleofis-dark: #7a1818;
+    --bg-color: #f4f6f8;     /* Светло-серый фон как на сайте */
+    --card-bg: #ffffff;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --border-color: #dcdcdc;
+    --shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    line-height: 1.5;
 }
 
+/* --- Header --- */
+.app-header {
+    background-color: white;
+    border-bottom: 3px solid var(--teleofis-red);
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-logo {
+    height: 40px;
+    width: auto;
+}
+
+.header-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Layout --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 25px;
+    padding-bottom: 40px;
 }
 
 @media (max-width: 768px) {
-    .container { grid-template-columns: 1fr; }
+    .main-content { grid-template-columns: 1fr; }
+    .header-content { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 
+/* --- Cards --- */
 .card {
-    background: var(--card);
-    padding: 20px;
+    background: var(--card-bg);
+    padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
-h1 { margin-top: 0; color: var(--primary); font-size: 1.5rem; }
-h2 { margin-top: 0; font-size: 1.2rem; }
-h3 { margin-top: 15px; margin-bottom: 10px; font-size: 1rem; }
+h2 { 
+    margin-top: 0; 
+    font-size: 1.4rem; 
+    color: var(--teleofis-red); 
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
 
-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    font-size: 0.9rem; 
+    color: var(--text-muted);
+}
 
 textarea {
     width: 100%;
-    height: 150px;
-    padding: 10px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    height: 140px;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
     font-family: monospace;
+    font-size: 14px;
     resize: vertical;
     box-sizing: border-box;
+    transition: border-color 0.2s;
 }
 
+textarea:focus {
+    outline: none;
+    border-color: var(--teleofis-red);
+}
+
+/* --- Buttons --- */
 .controls { margin-top: 15px; display: flex; gap: 10px; }
 
-.btn-primary { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-.btn-secondary { background: #cbd5e1; color: #334155; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
-.btn-small { background: var(--primary); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-top: 5px;}
-.btn-copy { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; margin-top: 5px;}
+.btn-primary { 
+    background: var(--teleofis-red); 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: 600;
+    transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--teleofis-dark); }
 
-.output-box {
-    background: #f1f5f9;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    min-height: 60px;
-    white-space: pre-wrap;
-    font-size: 0.95rem;
+.btn-secondary { 
+    background: #e0e0e0; 
+    color: #333; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-weight: 600;
+}
+.btn-secondary:hover { background: #d0d0d0; }
+
+.btn-small { 
+    background: var(--teleofis-red); 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.85rem;
+    margin-top: 5px;
 }
 
-.admin-panel { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 10px; }
-.admin-form { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-input, select { padding: 8px; border: 1px solid var(--border); border-radius: 4px; }
+.btn-copy { 
+    background: transparent; 
+    border: 1px solid var(--teleofis-red); 
+    color: var(--teleofis-red); 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 0.8rem; 
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+.btn-copy:hover {
+    background: var(--teleofis-red);
+    color: white;
+}
 
-/* Стили для таблицы базы данных */
+/* --- Output --- */
+.output-box {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    min-height: 80px;
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    color: #222;
+}
+
+.footer-note {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+/* --- Admin Panel --- */
+.admin-panel { 
+    margin-top: 25px; 
+    border-top: 1px solid var(--border-color); 
+    padding-top: 15px; 
+}
+
+.admin-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+    margin-top: 10px; 
+    background: #fdfdfd;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px dashed #ddd;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+.form-row input, .form-row select {
+    flex: 1;
+}
+
+input, select { 
+    padding: 8px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 4px; 
+    font-size: 0.9rem;
+}
+
+/* --- DB Table --- */
 .db-table {
     width: 100%;
     border-collapse: collapse;
@@ -81,21 +233,33 @@ input, select { padding: 8px; border: 1px solid var(--border); border-radius: 4p
 }
 
 .db-table th, .db-table td {
-    border: 1px solid var(--border);
-    padding: 8px;
+    border: 1px solid #eee;
+    padding: 6px;
     text-align: left;
 }
 
-.db-table th { background-color: #f1f5f9; }
-.db-name { font-weight: bold; color: #64748b; width: 30%; }
+.db-table th { 
+    background-color: #f4f4f4; 
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.db-name { 
+    font-weight: bold; 
+    color: var(--text-muted); 
+    width: 25%; 
+    font-size: 0.8rem;
+}
+
 .db-table input { 
     width: 95%; 
     padding: 4px; 
     border: 1px solid transparent; 
     background: transparent;
+    font-size: 0.85rem;
 }
 .db-table input:hover, .db-table input:focus {
-    border: 1px solid var(--primary);
+    border: 1px solid var(--teleofis-red);
     background: white;
     outline: none;
 }
