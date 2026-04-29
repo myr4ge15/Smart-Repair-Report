@@ -3,17 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Repair Report</title>
+    <title>TELEOFIS | Service Report Generator</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Фавиконка (опционально) -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==">
 </head>
 <body>
 
-<div class="container">
+<!-- Шапка с логотипом -->
+<header class="app-header">
+    <div class="container header-content">
+        <div class="logo-wrapper">
+            <!-- Встроенный SVG логотип TELEOFIS для четкости -->
+            <svg viewBox="0 0 200 40" class="brand-logo" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="30" font-family="Arial, sans-serif" font-weight="900" font-style="italic" fill="#981e1e" font-size="35">TELEOFIS</text>
+                <circle cx="195" cy="10" r="8" stroke="#981e1e" stroke-width="2" fill="none"/>
+                <text x="191" y="14" font-family="Arial, sans-serif" font-weight="bold" fill="#981e1e" font-size="10">®</text>
+            </svg>
+        </div>
+        <div class="header-title">
+            Генератор сервисных отчетов
+        </div>
+    </div>
+</header>
+
+<div class="container main-content">
     <!-- Левая колонка: Ввод и Настройки -->
     <div class="card input-section">
-        <h1>🛠️ Генератор отчетов</h1>
+        <h2>Ввод данных</h2>
         
-        <label for="rawInput">Введите список работ / замен:</label>
+        <label for="rawInput">Список работ / замен:</label>
         <textarea id="rawInput" placeholder="Пример: замена Модуль SIM7600E-H imei:868140072235570, Микроконтроллер STM32L151, обновлена прошивка..."></textarea>
         
         <div class="controls">
@@ -24,41 +43,45 @@
         <!-- Блок управления базой знаний -->
         <div class="admin-panel">
             <details>
-                <summary>⚙️ Управление базой знаний</summary>
+                <summary>⚙️ База знаний компонентов</summary>
                 
                 <!-- Часть 1: Быстрое добавление -->
                 <div class="admin-form">
-                    <h3>Добавить новый компонент</h3>
-                    <input type="text" id="newPartNumber" placeholder="Part Number (напр. XYZ123)">
-                    <select id="newCategory">
-                        <option value="MCU">Микроконтроллер</option>
-                        <option value="MODEM">Модем</option>
-                        <option value="POWER_IC">Питание (микросхема)</option>
-                        <option value="GPIO">Транзистор/Логика</option>
-                        <option value="INTERFACE">Интерфейс</option>
-                        <option value="CONNECTOR">Разъем</option>
-                        <option value="BATTERY">Батарея</option>
-                        <option value="PROTECTION">Защита/Доработка</option>
-                    </select>
-                    <input type="text" id="newPhraseDone" placeholder="Фраза 'Выполнено' (напр. Замена микросхемы)">
-                    <input type="text" id="newPhraseTodo" placeholder="Фраза 'Требуется' (напр. микросхемы)">
-                    <button id="btnAddComponent" class="btn-small">➕ Добавить в базу</button>
+                    <h3>Добавить компонент</h3>
+                    <div class="form-row">
+                        <input type="text" id="newPartNumber" placeholder="Part Number (напр. XYZ123)">
+                        <select id="newCategory">
+                            <option value="MCU">МК</option>
+                            <option value="MODEM">Модем</option>
+                            <option value="POWER_IC">Питание</option>
+                            <option value="GPIO">Транзисторы</option>
+                            <option value="INTERFACE">Интерфейс</option>
+                            <option value="CONNECTOR">Разъем</option>
+                            <option value="BATTERY">Батарея</option>
+                            <option value="PROTECTION">Защита</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="newPhraseDone" placeholder="Фраза 'Выполнено'">
+                        <input type="text" id="newPhraseTodo" placeholder="Фраза 'Требуется'">
+                    </div>
+                    <button id="btnAddComponent" class="btn-small">➕ Добавить</button>
                 </div>
 
                 <hr style="margin: 15px 0; border: 0; border-top: 1px solid #eee;">
 
-                <!-- Часть 2: Редактирование существующей базы -->
+                <!-- Часть 2: Редактирование -->
                 <div class="db-editor">
-                    <h3>Редактор текущих фраз</h3>
+                    <h3>Редактор фраз</h3>
                     <p style="font-size: 0.8rem; color: #666;">
-                        Измените текст прямо в таблице. Например, поменяйте "доработка..." на "ремонт..." для варисторов.
+                        Измените формулировки в таблице ниже.
                     </p>
                     <div id="dbContainer" style="max-height: 300px; overflow-y: auto;">
                         <!-- Таблица генерируется JS -->
                     </div>
                     <div class="db-controls">
-                        <button id="btnSaveDb" class="btn-primary">💾 Сохранить изменения</button>
-                        <button id="btnResetDb" class="btn-secondary">🔄 Сброс к заводским</button>
+                        <button id="btnSaveDb" class="btn-primary">💾 Сохранить</button>
+                        <button id="btnResetDb" class="btn-secondary">🔄 Сброс</button>
                     </div>
                 </div>
             </details>
@@ -73,9 +96,13 @@
         <div class="output-box" id="resultDone">Здесь появится текст отчета...</div>
         <button class="btn-copy" onclick="copyToClipboard('resultDone')">Копировать</button>
 
-        <label style="margin-top: 20px;">Требуется замена (Дефектовка):</label>
+        <label style="margin-top: 20px;">Дефектовка (Требуется замена):</label>
         <div class="output-box" id="resultTodo">Здесь появится список...</div>
         <button class="btn-copy" onclick="copyToClipboard('resultTodo')">Копировать</button>
+        
+        <div class="footer-note">
+            v1.0 | Internal Tool
+        </div>
     </div>
 </div>
 
