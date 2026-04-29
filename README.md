@@ -1,52 +1,57 @@
-# Smart Repair Report Generator
+# 🛠️ TELEOFIS | Генератор сервисных отчетов
 
-🛠️ **Browser-based tool for automating service reports and defect lists for electronic devices.**
+Веб-инструмент для автоматизации составления актов выполненных работ и дефектовочных ведомостей при ремонте телекоммуникационного оборудования.
 
-This application helps service engineers convert raw repair notes (lists of replaced components) into standardized, professional technical reports. It automatically recognizes components, extracts IMEI numbers, applies business logic (e.g., distinguishing between "replacement" and "modification"), and generates ready-to-copy text for acts and CRM systems.
+Приложение преобразует «сырые» заметки инженера (список замененных компонентов) в стандартизированные, профессиональные формулировки, соответствующие внутренним стандартам документооборота.
 
-## ✨ Features
+## ✨ Возможности
 
-- **Smart Parsing**: Recognizes components by Part Number (e.g., `STM32L151`, `SIM7600`, `AP3012`).
-- **IMEI Extraction**: Automatically detects and formats IMEI numbers for modem replacements.
-- **Customizable Logic**: 
-  - Distinguishes between "Component Replacement" and "Circuit Modification" (e.g., varistor installation).
-  - Sorts actions by priority (Modems > MCU > Power > Interfaces).
-- **Editable Knowledge Base**: Built-in UI to add new components or edit report phrases without changing code.
-- **Local Storage**: Saves your custom database changes in the browser.
-- **Privacy First**: Runs entirely in the browser (Client-Side). No data is sent to any server.
+- **Умный парсинг**: Автоматически распознает компоненты по партномерам (например, `STM32L151`, `SIM7600`, `AP3012`) и их функциональному назначению.
+- **Извлечение IMEI**: Находит и корректно форматирует IMEI-коды при замене модемов, вынося их в отдельный блок отчета.
+- **Гибкая логика формулировок**:
+  - Различает понятия «Замена компонента» и «Доработка/Ремонт узла» (например, установка варистора трактуется как ремонт блока питания).
+  - Сортирует действия по приоритету (Модемы → МК → Питание → Интерфейсы).
+- **Редактируемая база знаний**: Встроенный интерфейс позволяет добавлять новые компоненты или менять формулировки отчетов без изменения кода программы.
+- **Локальное хранение**: Все изменения в базе знаний сохраняются в браузере (LocalStorage).
+- **Конфиденциальность**: Работает полностью в браузере (Client-Side). Данные не отправляются на внешние серверы.
 
-## 🚀 How to Use
+## 🚀 Как пользоваться
 
-1. **Open** `index.html` in any modern web browser.
-2. **Paste** your raw repair notes into the input field.
-   > Example: `замена Модуль SIM7600E-H imei:868140072235570, Микроконтроллер STM32L151, Варистор B72207, обновлена прошивка`
-3. **Click** "Сформировать отчет".
-4. **Copy** the result from the "Отчет о выполненной работе" or "Требуется замена" section.
+1. **Откройте** файл `index.html` в любом современном браузере.
+2. **Вставьте** текст из ремонтной карты в поле ввода.
+   > *Пример:* `замена Модуль SIM7600E-H imei:868140072235570, Микроконтроллер STM32L151, Варистор B72207, обновлена прошивка`
+3. **Нажмите** кнопку **«Сформировать отчет»**.
+4. **Скопируйте** готовый текст из блоков:
+   - **«Отчет о выполненной работе»** — для актов и CRM.
+   - **«Дефектовка»** — для списков требуемых запчастей.
 
-### Managing the Database
+### ⚙️ Настройка базы знаний
 
-- Click **"⚙️ Управление базой знаний"** to expand settings.
-- **Add New Component**: Enter Part Number, select category, and define phrases.
-- **Edit Existing**: Find the component in the table, change the phrase (e.g., change "доработка" to "ремонт"), and click **"💾 Сохранить изменения"**.
+Нажмите на раздел **«⚙️ База знаний компонентов»**, чтобы раскрыть панель управления:
 
-## 📂 Project Structure
+- **Добавить компонент**: Укажите Part Number, выберите категорию и задайте формулировки для отчетов.
+- **Редактировать существующие**: Найдите нужный компонент в таблице, измените текст фразы (например, замените «доработка» на «ремонт») и нажмите **«💾 Сохранить»**.
 
-- `index.html`: Main application structure.
-- `style.css`: Stylesheet.
-- `data.js`: Default knowledge base (components, patterns, priorities).
-- `parser.js`: Logic for text analysis and entity extraction.
-- `generator.js`: Logic for assembling the final report strings.
-- `app.js`: UI interaction, event handling, and LocalStorage management.
+## 📂 Структура проекта
 
-## 🛠️ Tech Stack
+- `index.html` — Основной интерфейс приложения.
+- `style.css` — Стили оформления (корпоративный стиль TELEOFIS).
+- `data.js` — База знаний по умолчанию (компоненты, паттерны поиска, приоритеты).
+- `parser.js` — Логика анализа текста и извлечения сущностей (IMEI, флаги).
+- `generator.js` — Логика сборки финальных текстовых отчетов.
+- `app.js` — Обработка событий интерфейса и управление LocalStorage.
+- `teleofis-logo.png` — Файл логотипа для шапки сайта.
+- `favicon.png` — Иконка для вкладки браузера.
+
+## 🛠️ Технологии
 
 - Vanilla JavaScript (ES6+)
 - HTML5 / CSS3
-- No external dependencies or frameworks.
+- Без внешних зависимостей и фреймворков.
 
-## 📄 License
+## 📄 Лицензия
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Этот проект распространяется под лицензией MIT. Подробнее см. в файле [LICENSE](LICENSE).
 
 ---
-*Created for internal service automation needs.*
+*Разработано для внутренних нужд службы техподдержки.*
