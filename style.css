@@ -42,6 +42,20 @@ body {
     display: block;
 }
 
+/* Стили для ссылки-логотипа */
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 0; /* Убирает лишние отступы снизу у картинки внутри ссылки */
+}
+
+/* Опционально: эффект при наведении */
+.logo-link:hover .brand-logo {
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+}
+
 .header-title {
     font-size: 1.2rem;
     font-weight: 600;
