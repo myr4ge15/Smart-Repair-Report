@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Элементы вывода
     const resultDone = document.getElementById('resultDone');
-    const resultTodo = document.getElementById('resultTodo');
 
     // Элементы управления базой
     const dbContainer = document.getElementById('dbContainer');
@@ -26,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         rawInput.value = '';
         // Возвращаем исходные тексты-подсказки вместо "..."
         resultDone.textContent = 'Здесь появится текст отчета...';
-        resultTodo.textContent = 'Здесь появится список...';
     });
 
     btnSaveDb.addEventListener('click', () => {
@@ -51,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const parsed = Parser.parse(text);
         resultDone.textContent = Generator.generateDoneReport(parsed);
-        resultTodo.textContent = Generator.generateTodoReport(parsed);
     }
 
     // --- Функции управления базой данных ---
@@ -64,7 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const existing = COMPONENT_DB.find(c => c.id === savedItem.id);
                 if (existing) {
                     existing.phraseDone = savedItem.phraseDone;
-                    existing.phraseTodo = savedItem.phraseTodo;
                 }
             });
         }
@@ -103,18 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
             inputDone.addEventListener('change', updateDbModel);
             tdDone.appendChild(inputDone);
 
-            const tdTodo = document.createElement('td');
-            const inputTodo = document.createElement('input');
-            inputTodo.type = 'text';
-            inputTodo.value = comp.phraseTodo;
-            inputTodo.dataset.index = index;
-            inputTodo.dataset.field = 'phraseTodo';
-            inputTodo.addEventListener('change', updateDbModel);
-            tdTodo.appendChild(inputTodo);
 
             tr.appendChild(tdName);
             tr.appendChild(tdDone);
-            tr.appendChild(tdTodo);
             tbody.appendChild(tr);
         });
 
@@ -132,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const dataToSave = COMPONENT_DB.map(c => ({
             id: c.id,
             phraseDone: c.phraseDone,
-            phraseTodo: c.phraseTodo
         }));
         localStorage.setItem('repairAppDB', JSON.stringify(dataToSave));
     }
@@ -141,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const pattern = document.getElementById('newPartNumber').value.trim();
         const category = document.getElementById('newCategory').value;
         const phraseDone = document.getElementById('newPhraseDone').value.trim();
-        const phraseTodo = document.getElementById('newPhraseTodo').value.trim();
 
         if (!pattern || !phraseDone) {
             alert('Заполните Part Number и Фразу "Выполнено"');
@@ -154,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             category: category,
             patterns: [pattern],
             phraseDone: phraseDone,
-            phraseTodo: phraseTodo || phraseDone.toLowerCase(),
             priority: CATEGORY_PRIORITY[category] || 9
         };
 
@@ -164,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Очистка полей
         document.getElementById('newPartNumber').value = '';
         document.getElementById('newPhraseDone').value = '';
-        document.getElementById('newPhraseTodo').value = '';
         
         alert('Компонент добавлен! Не забудьте нажать "Сохранить изменения".');
     }
