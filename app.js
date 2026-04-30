@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <tr>
                 <th>Компонент</th>
                 <th>Фраза: Выполнено</th>
-                <th>Фраза: Требуется</th>
             </tr>
         `;
         table.appendChild(thead);

@@ -21,10 +21,4 @@ const Generator = {
 
         return reportText;
     },
-
-    generateTodoReport: function(parsedData) {
-        if (parsedData.items.length === 0) return "Нет данных.";
-        const componentsList = parsedData.items.map(item => item.phraseTodo).join(', ');
-        return `требуется замена ${componentsList}`;
-    }
 };
